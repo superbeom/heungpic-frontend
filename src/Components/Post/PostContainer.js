@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import useInput from "../../Hooks/useInput";
 import PostPresenter from "./PostPresenter";
+import { useMutation } from "react-apollo-hooks";
+import { TOGGLE_LIKE, ADD_COMMENT } from "./PostQueries";
+import { toast } from "react-toastify";
 
 const PostContainer = ({
   id,
@@ -19,6 +22,14 @@ const PostContainer = ({
   const [currentItem, setCurrentItem] = useState(0);
   const comment = useInput("");
 
+  const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
+    variables: { postId: id }
+  });
+
+  const [addCommentMutation] = useMutation(ADD_COMMENT, {
+    variables: { postId: id, text: comment.value }
+  });
+
   useEffect(() => {
     const slide = () => {
       const totalFiles = files.length;
@@ -31,6 +42,22 @@ const PostContainer = ({
 
     slide();
   }, [currentItem, files]);
+
+  const toggleLike = () => {
+    try {
+      toggleLikeMutation();
+      if (isLikedS === true) {
+        setIsLiked(false);
+        setLikeCount(likeCountS - 1);
+      } else {
+        setIsLiked(true);
+        setLikeCount(likeCountS + 1);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Can't press like button. Try again!");
+    }
+  };
 
   return (
     <PostPresenter
@@ -46,6 +73,7 @@ const PostContainer = ({
       setLikeCount={setLikeCount}
       setIsLiked={setIsLiked}
       currentItem={currentItem}
+      toggleLike={toggleLike}
     />
   );
 };
