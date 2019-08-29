@@ -65,7 +65,12 @@ export default ({
             <title>Log In | Heungpic</title>
           </Helmet>
           <form onSubmit={onSubmit}>
-            <Input placeholder={"Email"} {...email} type="email" />
+            <Input
+              placeholder={"Email"}
+              value={email.value}
+              onChange={email.onChange}
+              type="email"
+            />
             <Button text={"Log in"} />
           </form>
         </>
@@ -76,10 +81,27 @@ export default ({
             <title>Sign Up | Heungpic</title>
           </Helmet>
           <form onSubmit={onSubmit}>
-            <Input placeholder={"First name"} {...firstName} />
-            <Input placeholder={"Last name"} {...lastName} />
-            <Input placeholder={"Email"} {...email} type="email" />
-            <Input placeholder={"Username"} {...username} />
+            <Input
+              placeholder={"First name"}
+              value={firstName.value}
+              onChange={firstName.onChange}
+            />
+            <Input
+              placeholder={"Last name"}
+              value={lastName.value}
+              onChange={lastName.onChange}
+            />
+            <Input
+              placeholder={"Email"}
+              value={email.value}
+              onChange={email.onChange}
+              type="email"
+            />
+            <Input
+              placeholder={"Username"}
+              value={username.value}
+              onChange={username.onChange}
+            />
             <Button text={"Sign up"} />
           </form>
         </>
@@ -92,7 +114,8 @@ export default ({
           <form onSubmit={onSubmit}>
             <Input
               placeholder={"Paste your secret"}
-              {...secret}
+              value={secret.value}
+              onChange={secret.onChange}
               type="password"
             />
             <Button text={"Confirm"} />
