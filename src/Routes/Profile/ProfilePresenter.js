@@ -7,6 +7,7 @@ import Avatar from "../../Components/Avatar";
 import FatText from "../../Components/FatText";
 import FollowButton from "../../Components/FollowButton";
 import SquarePost from "../../Components/SquarePost";
+import Button from "../../Components/Button";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -21,7 +22,15 @@ const Header = styled.header`
   margin-bottom: 100px;
 `;
 
-const HeaderColumn = styled.div``;
+const HeaderColumn = styled.div`
+  &:first-child {
+    margin-right: 100px;
+  }
+`;
+
+const HeaderColumnSecond = styled(HeaderColumn)`
+  width: 80%;
+`;
 
 const UsernameRow = styled.div`
   display: flex;
@@ -61,7 +70,7 @@ const Posts = styled.div`
   grid-auto-rows: 200px;
 `;
 
-const ProfilePresenter = ({ loading, data }) => {
+const ProfilePresenter = ({ loading, data, logOut }) => {
   if (loading === true) {
     return (
       <Wrapper>
@@ -94,10 +103,14 @@ const ProfilePresenter = ({ loading, data }) => {
           <HeaderColumn>
             <Avatar size="lg" url={avatar} />
           </HeaderColumn>
-          <HeaderColumn>
+          <HeaderColumnSecond>
             <UsernameRow>
               <Username>{username}</Username>
-              {!isSelf && <FollowButton id={id} isFollowing={isFollowing} />}
+              {isSelf ? (
+                <Button onClick={logOut} text="Log Out" />
+              ) : (
+                <FollowButton id={id} isFollowing={isFollowing} />
+              )}
             </UsernameRow>
             <Counts>
               <Count>
@@ -112,7 +125,7 @@ const ProfilePresenter = ({ loading, data }) => {
             </Counts>
             <FullName text={fullName} />
             <Bio>{bio}</Bio>
-          </HeaderColumn>
+          </HeaderColumnSecond>
         </Header>
         <Posts>
           {posts &&
