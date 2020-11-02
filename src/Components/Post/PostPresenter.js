@@ -7,7 +7,7 @@ import Avatar from "../Avatar";
 import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
 
 const Post = styled.div`
-  ${props => props.theme.whiteBox};
+  ${(props) => props.theme.whiteBox};
   width: 100%;
   max-width: 600px;
   user-select: none;
@@ -48,10 +48,10 @@ const File = styled.div`
   height: 600px;
   position: absolute;
   top: 0;
-  background-image: url(${props => props.src});
+  background-image: url(${(props) => props.src});
   background-size: cover;
   background-position: center;
-  opacity: ${props => (props.showing ? 1 : 0)};
+  opacity: ${(props) => (props.showing ? 1 : 0)};
   transition: opacity 0.5s linear;
 `;
 
@@ -80,7 +80,7 @@ const Timestamp = styled.span`
   font-size: 12px;
   margin: 10px 0px;
   padding-bottom: 10px;
-  border-bottom: ${props => props.theme.lightGreyColor} 1px solid;
+  border-bottom: ${(props) => props.theme.lightGreyColor} 1px solid;
 `;
 
 const Textarea = styled(TextareaAutosize)`
@@ -103,7 +103,7 @@ const Comment = styled.li`
   }
 `;
 
-const eachComment = comment => (
+const eachComment = (comment) => (
   <Comment key={comment.id}>
     <FatText text={comment.user.username} />
     {comment.text}
@@ -122,7 +122,7 @@ export default ({
   toggleLike,
   onKeyPress,
   comments,
-  selfComments
+  selfComments,
 }) => (
   <Post>
     <Header>
@@ -156,8 +156,8 @@ export default ({
       )}
       {comments && (
         <Comments>
-          {comments.map(comment => eachComment(comment))}
-          {selfComments.map(comment => eachComment(comment))}
+          {comments.map((comment) => eachComment(comment))}
+          {selfComments.map((comment) => eachComment(comment))}
         </Comments>
       )}
       <Timestamp>{createdAt}</Timestamp>
